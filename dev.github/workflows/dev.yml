@@ -1,0 +1,30 @@
+name: Salesforce Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main    
+  pull_request:
+    branches:
+      - main    
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest   
+
+    steps:
+      
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      
+      #  Install Salesforce CLI 
+      - name: Install Salesforce CLI
+        run: npm install sfdx-cli --global
+
+     
+      # Deploy Salesforce(force-app/)
+      - name: Deploy Salesforce Code
+        run: sfdx force:source:deploy -u MyOrgAlias -p force-app
+
+     
